@@ -1,0 +1,454 @@
+:root {
+  /* Fresco plaster */
+  --plaster: #e7dcc3;
+  --panel: #f7f1e1;
+  --panel-2: #efe6d0;
+  --edge: #cdb891;
+  --edge-soft: rgba(181, 139, 42, 0.26);
+
+  /* Pigments — ochre, sinopia, lapis, terre verte */
+  --ink: #33291c;
+  --ink-2: #57472f;
+  --muted: #8a7857;
+  --gold: #b0821f;
+  --gold-lit: #d5a63c;
+  --lapis: #2b5d8b;
+  --sinopia: #a8432c;
+  --verde: #6c7f4c;
+
+  --pass: var(--verde);
+  --fail: var(--sinopia);
+  --bar: var(--lapis);
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'EB Garamond', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.55;
+  background:
+    radial-gradient(1100px 620px at 50% -8%, #f6efdd 0%, transparent 62%),
+    radial-gradient(760px 520px at 8% 102%, rgba(176, 130, 31, 0.13), transparent 60%),
+    radial-gradient(760px 520px at 92% 102%, rgba(168, 67, 44, 0.10), transparent 60%),
+    var(--plaster);
+  background-attachment: fixed;
+}
+
+/* Plaster grain laid over the whole wall */
+.plaster {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
+}
+
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0 0 6px;
+  letter-spacing: 0.01em;
+}
+
+/* Section eyebrow with a gold rule trailing off */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 2px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.eyebrow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--edge-soft), transparent);
+}
+
+/* Arcade line-art */
+.vault { display: block; width: 100%; height: 130px; }
+.vault .arc,
+.vault .cornice {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.5;
+}
+.vault .arc-in { opacity: 0.28; }
+.vault .cornice { opacity: 0.55; }
+/* Full-bleed arch across the card's top edge */
+.vault-sm {
+  height: 72px;
+  width: calc(100% + 72px);
+  margin: -6px -36px 14px;
+}
+
+#login-view[hidden],
+#profile-view[hidden] { display: none; }
+
+/* --- Login --- */
+#login-view {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.login-card {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  background: linear-gradient(180deg, #fbf6e9, var(--panel-2));
+  border: 1px solid var(--edge);
+  border-radius: 2px;
+  padding: 18px 36px 38px;
+  box-shadow:
+    inset 0 1px 0 #fffdf4,
+    0 18px 40px -28px rgba(51, 41, 28, 0.75);
+}
+.login-card::before {
+  content: '';
+  position: absolute;
+  inset: 6px;
+  border: 1px solid var(--edge-soft);
+  pointer-events: none;
+}
+
+.login-card h1 { font-size: 44px; line-height: 1.05; }
+.login-card .sub,
+.query-console .sub {
+  color: var(--muted);
+  margin: 0 0 26px;
+  font-size: 15px;
+  font-style: italic;
+}
+
+.login-card label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  margin: 18px 0 6px;
+}
+
+.login-card input {
+  width: 100%;
+  background: #fdfaf0;
+  border: 1px solid var(--edge);
+  border-radius: 2px;
+  padding: 11px 13px;
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+}
+
+.login-card input:focus,
+button:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+button {
+  margin-top: 28px;
+  width: 100%;
+  background: linear-gradient(180deg, var(--gold-lit), var(--gold));
+  color: #2b1f06;
+  border: 1px solid #99711a;
+  border-radius: 2px;
+  padding: 11px 14px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 250, 230, 0.6);
+}
+
+button:hover { filter: brightness(1.06); }
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.error {
+  color: var(--sinopia);
+  font-size: 15px;
+  font-style: italic;
+  margin: 18px 0 0;
+}
+
+/* --- Profile header --- */
+.frieze { padding-top: 18px; }
+
+.frieze-inner {
+  position: relative;
+  max-width: 1080px;
+  margin: -14px auto 0;
+  padding: 0 28px 22px;
+  text-align: center;
+  border-bottom: 1px solid var(--edge);
+}
+
+.brand {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.scholar {
+  font-size: 46px;
+  line-height: 1.1;
+  margin: 2px 0 0;
+}
+.scholar #who-login { font-style: italic; color: var(--sinopia); }
+
+.epigraph {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-style: italic;
+  font-size: 15px;
+}
+
+#logout-btn {
+  position: absolute;
+  top: 4px;
+  right: 28px;
+  margin: 0;
+  width: auto;
+  padding: 7px 16px;
+  font-size: 12px;
+  background: transparent;
+  color: var(--ink-2);
+  border: 1px solid var(--edge);
+  box-shadow: none;
+}
+#logout-btn:hover { background: rgba(176, 130, 31, 0.1); filter: none; }
+
+.loading {
+  max-width: 1080px;
+  margin: 18px auto 0;
+  padding: 0 28px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* --- Layout --- */
+.layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 26px;
+  padding: 26px 28px;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; }
+  .activity-list li { grid-template-columns: 1fr auto; }
+  .activity-list .activity-date { grid-column: 2; text-align: right; }
+  .scholar { font-size: 34px; }
+  #logout-btn { position: static; margin-top: 14px; }
+  .frieze-inner { padding-bottom: 18px; }
+}
+
+/* Stone plaques */
+.stat-block {
+  position: relative;
+  border: 1px solid var(--edge);
+  border-radius: 2px;
+  padding: 16px 18px 18px;
+  margin-bottom: 18px;
+  text-align: center;
+  background: linear-gradient(180deg, #fbf6e9, var(--panel-2));
+  box-shadow: inset 0 1px 0 #fffdf4, 0 12px 26px -22px rgba(51, 41, 28, 0.8);
+}
+.stat-block::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--edge-soft);
+  pointer-events: none;
+}
+
+.stat-block .tag {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.stat-block .label {
+  display: block;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.stat-block .value {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.stat-block .value.small { font-size: 26px; }
+.stat-block .value.mono { font-family: var(--font-mono); font-size: 17px; }
+
+.stat-block.hero { padding: 20px 18px 24px; }
+.stat-block.hero .value {
+  font-size: 52px;
+  color: var(--gold);
+  text-shadow: 0 1px 0 rgba(255, 252, 240, 0.9);
+}
+
+.graphs { display: flex; flex-direction: column; gap: 22px; }
+
+.panel {
+  position: relative;
+  border: 1px solid var(--edge);
+  border-radius: 2px;
+  padding: 20px 24px 24px;
+  background: linear-gradient(180deg, var(--panel), var(--panel-2));
+  box-shadow: inset 0 1px 0 #fffdf4, 0 14px 30px -26px rgba(51, 41, 28, 0.8);
+}
+.panel::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--edge-soft);
+  pointer-events: none;
+}
+.panel h2 { font-size: 30px; margin-bottom: 10px; }
+
+.graph-holder { position: relative; }
+.graph-holder svg { width: 100%; height: auto; display: block; }
+
+/* The ring is a medallion, not a wall-sized fresco */
+#pf-graph svg { max-width: 260px; margin: 6px auto 0; }
+
+/* --- Chart pigments --- */
+.axis { stroke: var(--edge); stroke-width: 1; }
+.gridline { stroke: var(--edge); stroke-width: 1; opacity: 0.4; stroke-dasharray: 2 5; }
+.area { fill: rgba(176, 130, 31, 0.16); stroke: none; }
+.line { fill: none; stroke: var(--gold); stroke-width: 2; stroke-linejoin: round; }
+.node { fill: #fdfaf0; stroke: var(--gold); stroke-width: 1.5; }
+.node-last { fill: var(--sinopia); stroke: #7d2f1e; }
+.bar { fill: var(--bar); fill-opacity: 0.88; stroke: #26496d; stroke-width: 0.75; }
+.bar-cap { fill: rgba(255, 252, 240, 0.22); }
+.tick {
+  fill: var(--muted);
+  font-family: var(--font-body);
+  font-size: 12px;
+}
+.tick-name { fill: var(--ink-2); font-style: italic; font-size: 13px; }
+.tick-val { fill: var(--gold); font-size: 12px; }
+
+.ring-track { stroke: rgba(168, 67, 44, 0.45); }
+.ring-pass { stroke: var(--verde); stroke-linecap: butt; }
+.donut-figure {
+  fill: var(--ink);
+  font-family: var(--font-display);
+  font-size: 34px;
+  font-weight: 600;
+}
+.donut-label {
+  fill: var(--muted);
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 13px;
+}
+
+.legend {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.legend-item { display: flex; align-items: center; gap: 7px; }
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 1px rgba(51, 41, 28, 0.25);
+}
+.dot.pass { background: var(--pass); }
+.dot.fail { background: var(--fail); }
+
+.empty { color: var(--muted); font-style: italic; }
+
+/* --- Activity & console --- */
+.activity-panel, .query-console {
+  max-width: 1080px;
+  margin: 0 auto 26px;
+}
+.activity-panel { margin-top: 0; }
+
+.activity-list { list-style: none; margin: 8px 0 0; padding: 0; }
+.activity-list li {
+  display: grid;
+  grid-template-columns: 1fr 140px 104px;
+  align-items: baseline;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px dotted var(--edge);
+  font-size: 16px;
+}
+.activity-list li:last-child { border-bottom: none; }
+.activity-name { font-style: italic; }
+.activity-grade { font-family: var(--font-display); font-size: 18px; font-weight: 600; }
+.activity-grade.pass { color: var(--verde); }
+.activity-grade.fail { color: var(--sinopia); }
+.activity-date { color: var(--muted); font-size: 14px; white-space: nowrap; text-align: right; }
+
+.query-console textarea {
+  width: 100%;
+  background: #fdfaf0;
+  border: 1px solid var(--edge);
+  border-radius: 2px;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 12px 14px;
+  margin: 4px 0 0;
+  resize: vertical;
+}
+.query-console button {
+  width: auto;
+  margin: 14px 0 0;
+  padding: 9px 20px;
+}
+.query-console pre {
+  margin-top: 16px;
+  background: #fdfaf0;
+  border: 1px solid var(--edge);
+  border-radius: 2px;
+  padding: 14px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  max-height: 260px;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.query-console pre:empty { display: none; }

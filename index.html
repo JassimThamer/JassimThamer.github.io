@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Profile — Reboot01</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="plaster" aria-hidden="true"></div>
+
+  <!-- LOGIN VIEW -->
+  <main id="login-view" class="view">
+    <form id="login-form" class="login-card" autocomplete="off">
+      <svg class="vault vault-sm" viewBox="0 0 400 90" preserveAspectRatio="none" aria-hidden="true">
+        <path class="arc" d="M10 90 A190 78 0 0 1 390 90" />
+        <path class="arc arc-in" d="M34 90 A166 62 0 0 1 366 90" />
+      </svg>
+
+      <p class="eyebrow">Reboot01</p>
+      <h1>Sign in</h1>
+      <p class="sub">Use your 01Edu credentials</p>
+
+      <label for="identifier">Username or email</label>
+      <input id="identifier" type="text" required autocomplete="username" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" required autocomplete="current-password" />
+
+      <button type="submit">Sign in</button>
+      <p id="login-error" class="error" hidden></p>
+    </form>
+  </main>
+
+  <!-- PROFILE VIEW -->
+  <main id="profile-view" class="view" hidden>
+    <header class="frieze">
+      <svg class="vault" viewBox="0 0 1200 130" preserveAspectRatio="none" aria-hidden="true">
+        <path class="arc" d="M0 130 A200 118 0 0 1 400 130 A200 118 0 0 1 800 130 A200 118 0 0 1 1200 130" />
+        <path class="arc arc-in" d="M26 130 A174 96 0 0 1 374 130 A174 96 0 0 1 774 130 A174 96 0 0 1 1174 130" />
+        <path class="cornice" d="M0 129 H1200" />
+      </svg>
+
+      <div class="frieze-inner">
+        <span class="brand">Reboot01 profile</span>
+        <h1 class="scholar">Welcome, <span id="who-login">—</span></h1>
+        <p class="epigraph">Your XP, audits and project history</p>
+        <button id="logout-btn">Log out</button>
+      </div>
+    </header>
+
+    <p id="profile-loading" class="loading">Loading your data…</p>
+
+    <section class="layout">
+      <aside class="identity">
+        <div class="stat-block hero">
+          <span class="tag">Total XP</span>
+          <span class="label">earned all-time</span>
+          <span id="stat-xp" class="value">—</span>
+        </div>
+        <div class="stat-block">
+          <span class="tag">Audit ratio</span>
+          <span class="label">given vs. received</span>
+          <span id="stat-audit" class="value small">—</span>
+        </div>
+        <div class="stat-block">
+          <span class="tag">User ID</span>
+          <span class="label">your account number</span>
+          <span id="stat-id" class="value small mono">—</span>
+        </div>
+      </aside>
+
+      <section class="graphs">
+        <div class="panel">
+          <p class="eyebrow">Progress</p>
+          <h2>XP over time</h2>
+          <div id="xp-graph" class="graph-holder"></div>
+        </div>
+        <div class="panel">
+          <p class="eyebrow">Results</p>
+          <h2>Pass / fail ratio</h2>
+          <div id="pf-graph" class="graph-holder"></div>
+        </div>
+        <div class="panel">
+          <p class="eyebrow">Projects</p>
+          <h2>XP by project</h2>
+          <div id="xp-by-project-graph" class="graph-holder"></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel activity-panel">
+      <p class="eyebrow">History</p>
+      <h2>Recent activity</h2>
+      <ul id="activity-list" class="activity-list"></ul>
+    </section>
+
+    <section class="panel query-console">
+      <p class="eyebrow">Tools</p>
+      <h2>Query console</h2>
+      <p class="sub">Your own minimal GraphiQL — run any query against the live endpoint.</p>
+      <textarea id="console-query" rows="4">{ user { id login } }</textarea>
+      <button id="console-run" type="button">Run query</button>
+      <pre id="console-result"></pre>
+    </section>
+
+    <p id="profile-error" class="error" hidden></p>
+  </main>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
